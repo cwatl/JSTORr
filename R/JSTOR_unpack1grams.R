@@ -141,7 +141,7 @@ myfiles1 <- myfiles[full]
   bibliodata <- (merge(names(wordcounts), citfla, by.x=1, by.y="id"))
   # create a variable that holds the year of publication for
   # each article
-  bibliodata$year <- str_extract(bibliodata$issue, "[[:digit:]]+{4}")
+  bibliodata$year <- str_extract(bibliodata$issue, "[[:digit:]]+//{4//}")
   
   # clean up a little
   rm(aawc1, aawc2, cit, citfla, myfiles); invisible(gc(verbose = FALSE))
@@ -183,7 +183,7 @@ wordcounts <- wordcounts[unique(as.character(wordcounts$dimnames$Docs[1:nrow(wor
   message("done")
   
   message("discarding words with >2 consecutive characters (probably OCR errors)...")
-  wordcounts <- wordcounts[,!grepl("(.)\\1{2,}", wordcounts$dimnames$Terms)]
+  wordcounts <- wordcounts[,!grepl("(.)\\1\\{2,\\}", wordcounts$dimnames$Terms)]
   message("done")
   
   message("discarding non-ASCII characters...")
