@@ -124,6 +124,7 @@ myfiles1 <- myfiles[full]
   # replace for-slash with underscore to make it match the filenames
   # and replace odd \t that was added during import 
   library(stringr)
+  message("one")
   cit$id <- str_extract(chartr('/', '_', cit$id), ".*[^\t]")
   # limit list of citations to full length articles only 
   # note that citation type is not in the correct column
@@ -139,10 +140,11 @@ myfiles1 <- myfiles[full]
   # put citation IDs in the same order with wordcount data names
   # which is the same order as myfiles
   bibliodata <- (merge(names(wordcounts), citfla, by.x=1, by.y="id"))
+  message("two")
   # create a variable that holds the year of publication for
   # each article
-  bibliodata$year <- str_extract(bibliodata$issue, "[[:digit:]]+{4}")
-  
+  bibliodata$year <- str_extract(bibliodata$issue, "\\d+{4}")
+  message("three")
   # clean up a little
   rm(aawc1, aawc2, cit, citfla, myfiles); invisible(gc(verbose = FALSE))
   
